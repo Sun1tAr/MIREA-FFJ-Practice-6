@@ -1,31 +1,22 @@
 package my.learn.mireaffjpractice6.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "notes")
+@Table(name = "tags")
 @Data
-@Builder
-public class Note {
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String title;
-
-    @Column
-    private String content;
-
-    @JoinColumn(name = "user_id")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "id")
-    private User user;
+    private String name;
 
     @Column
     private LocalDateTime createdAt;
@@ -34,6 +25,5 @@ public class Note {
     private LocalDateTime updatedAt;
 
     @ManyToMany
-    private List<Tag> tags;
-
+    private List<Note> notes;
 }

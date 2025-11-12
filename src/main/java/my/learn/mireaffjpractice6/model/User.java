@@ -5,27 +5,22 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "notes")
+@Table(name = "users")
 @Data
 @Builder
-public class Note {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    private String title;
+    private String name;
 
     @Column
-    private String content;
-
-    @JoinColumn(name = "user_id")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "id")
-    private User user;
+    private String email;
 
     @Column
     private LocalDateTime createdAt;
@@ -33,7 +28,5 @@ public class Note {
     @Column
     private LocalDateTime updatedAt;
 
-    @ManyToMany
-    private List<Tag> tags;
 
 }
