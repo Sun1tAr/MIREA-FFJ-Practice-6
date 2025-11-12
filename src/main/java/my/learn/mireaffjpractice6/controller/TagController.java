@@ -4,6 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/notes")   //todo
-public class NoteController implements InformationController{
+@RequestMapping("/tags") //todo
+public class TagController implements InformationController{
 }

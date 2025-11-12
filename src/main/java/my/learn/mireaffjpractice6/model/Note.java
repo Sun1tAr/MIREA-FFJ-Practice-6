@@ -24,7 +24,7 @@ public class Note {
     private String content;
 
     @JoinColumn(name = "user_id")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private User user;
 
     @Column
