@@ -29,7 +29,7 @@ public class User {
     @Column
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "user")
     private List<Note> notes;
 
 

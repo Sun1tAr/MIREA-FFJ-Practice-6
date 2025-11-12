@@ -1,5 +1,6 @@
 package my.learn.mireaffjpractice6.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import my.learn.mireaffjpractice6.dto.request.CreateUserRequest;
 import my.learn.mireaffjpractice6.dto.responce.UserDTO;
@@ -22,7 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserRequest userRequest) {
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody CreateUserRequest userRequest) {
         Optional<UserDTO> user = userService.createUser(userRequest);
         if (user.isPresent()) {
             return new ResponseEntity<>(user.get(), HttpStatus.CREATED);
