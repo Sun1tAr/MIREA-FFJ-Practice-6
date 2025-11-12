@@ -24,6 +24,6 @@ public class Tag {
     @Column
     private LocalDateTime updatedAt;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "tags")
     private List<Note> notes;
 }

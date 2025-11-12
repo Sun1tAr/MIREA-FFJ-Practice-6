@@ -34,6 +34,11 @@ public class Note {
     private LocalDateTime updatedAt;
 
     @ManyToMany
+    @JoinTable(
+            name = "note_tags",
+            joinColumns = @JoinColumn(name = "note_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private List<Tag> tags;
 
 }
