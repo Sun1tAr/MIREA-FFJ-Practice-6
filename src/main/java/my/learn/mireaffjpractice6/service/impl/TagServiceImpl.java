@@ -1,5 +1,6 @@
 package my.learn.mireaffjpractice6.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import my.learn.mireaffjpractice6.dto.request.CreateTagRequest;
 import my.learn.mireaffjpractice6.dto.responce.TagDTO;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TagServiceImpl implements TagService {
 
     private final TagRepository tagRepository;

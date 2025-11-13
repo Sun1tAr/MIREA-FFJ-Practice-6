@@ -1,5 +1,6 @@
 package my.learn.mireaffjpractice6.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import my.learn.mireaffjpractice6.dto.request.CreateNoteRequest;
 import my.learn.mireaffjpractice6.exception.NotFoundException;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class NoteServiceImpl implements NoteService {
 
     private final NoteRepository noteRepository;
