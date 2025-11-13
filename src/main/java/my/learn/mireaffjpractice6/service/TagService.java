@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TagService {
-    Optional<TagDTO> createTag(CreateTagRequest tagRequest);
-    List<TagDTO> getTags();
+    Tag createTag(CreateTagRequest tagRequest);
+    List<Tag> getTags();
+    Tag findTagByName(String name);
+    List<Tag> getTagsByName(List<String> names);
 
 }

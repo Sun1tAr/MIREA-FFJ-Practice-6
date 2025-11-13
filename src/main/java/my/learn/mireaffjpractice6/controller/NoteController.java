@@ -4,13 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import my.learn.mireaffjpractice6.dto.request.CreateNoteRequest;
 import my.learn.mireaffjpractice6.dto.responce.NoteDTO;
-import my.learn.mireaffjpractice6.exception.InternalServerException;
+import my.learn.mireaffjpractice6.model.Note;
 import my.learn.mireaffjpractice6.service.NoteService;
+import my.learn.mireaffjpractice6.util.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/notes")
@@ -18,26 +17,22 @@ import java.util.Optional;
 public class NoteController implements InformationController {
 
     private final NoteService noteService;
+    private final ObjectMapper mapper;
 
     @PostMapping
     public ResponseEntity<NoteDTO> createNote(@Valid @RequestBody CreateNoteRequest noteRequest) {
-        Optional<NoteDTO> note = noteService.createNote(noteRequest);
-        if (note.isEmpty()) {
-            throw new InternalServerException("Note was not created");
-        }
+        Note note = noteService.createNote(noteRequest);
 
-        return new ResponseEntity<>(note.get(), HttpStatus.CREATED);
+        NoteDTO noteDTO = mapper.mapToDTO(note);
+
+        return new ResponseEntity<>(noteDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<NoteDTO> getNoteById(@PathVariable(name = "id") Long id) {
-        Optional<NoteDTO> note = noteService.getNoteById(id);
-
-        if (note.isEmpty()) {
-            throw new InternalServerException("Note was not created");
-        }
-
-        return new ResponseEntity<>(note.get(), HttpStatus.OK);
+        Note note = noteService.getNoteById(id);
+        NoteDTO noteDTO = mapper.mapToDTO(note);
+        return new ResponseEntity<>(noteDTO, HttpStatus.OK);
     }
 
 }

@@ -2,14 +2,15 @@ package my.learn.mireaffjpractice6.service;
 
 import my.learn.mireaffjpractice6.dto.request.CreateNoteRequest;
 import my.learn.mireaffjpractice6.dto.responce.NoteDTO;
+import my.learn.mireaffjpractice6.model.Note;
 
 import java.util.Optional;
 
 
 public interface NoteService {
 
-    Optional<NoteDTO> createNote(CreateNoteRequest noteRequest);
+    Note createNote(CreateNoteRequest noteRequest);
 
-    Optional<NoteDTO> getNoteById(Long id);
+    Note getNoteById(Long id);
 
 }
