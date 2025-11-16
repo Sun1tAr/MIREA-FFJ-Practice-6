@@ -17,7 +17,7 @@ public class ObjectMapperImpl implements ObjectMapper {
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
-                .notes(user.getNotes())
+                .notes(user.getNotes().stream().map(n -> mapToDTO(n)).toList())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .build();

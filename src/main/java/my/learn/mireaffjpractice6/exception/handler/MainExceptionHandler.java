@@ -5,6 +5,7 @@ import my.learn.mireaffjpractice6.exception.AppException;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -41,12 +42,16 @@ public class MainExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<Object> handleException(MethodArgumentNotValidException e) {
-        Map<String, String> body = getResponseBody(
-                e.getMessage(),
-                e.getDetailMessageCode(),
-                (HttpStatus) e.getStatusCode()
-        );
-        log.warn(e.getMessage());
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError error : e.getBindingResult().getFieldErrors()) {
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", "Validation failed");
+        body.put("errors", errors);
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 

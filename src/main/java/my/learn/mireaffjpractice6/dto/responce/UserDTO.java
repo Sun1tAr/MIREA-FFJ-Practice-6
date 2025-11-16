@@ -2,12 +2,14 @@ package my.learn.mireaffjpractice6.dto.responce;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
+import lombok.Getter;
 import my.learn.mireaffjpractice6.model.Note;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
+@Getter
 public class UserDTO {
 
     private Long id;
@@ -16,7 +18,8 @@ public class UserDTO {
 
     private String email;
 
-    private List<Note> notes;
+
+    private List<NoteDTO> notes;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDateTime createdAt;
