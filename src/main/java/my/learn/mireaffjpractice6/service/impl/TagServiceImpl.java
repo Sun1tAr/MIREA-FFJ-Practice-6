@@ -2,6 +2,7 @@ package my.learn.mireaffjpractice6.service.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import my.learn.mireaffjpractice6.dto.request.CreateTagRequest;
 import my.learn.mireaffjpractice6.dto.responce.TagDTO;
 import my.learn.mireaffjpractice6.exception.NotFoundException;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class TagServiceImpl implements TagService {
 
     private final TagRepository tagRepository;
@@ -40,7 +42,7 @@ public class TagServiceImpl implements TagService {
     public Tag findTagByName(String name) {
         Optional<Tag> tag = tagRepository.findByName(name);
         if (tag.isEmpty()) {
-            throw new NotFoundException("Tag was not found");
+            throw new NotFoundException("Tag " + name + " was not found");
         }
         return tag.get();
     }
@@ -48,7 +50,13 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<Tag> getTagsByName(List<String> names) {
         List<Tag> tags = new ArrayList<>();
-        names.forEach(name -> tags.add(findTagByName(name)));
+        names.parallelStream().forEach(name -> {
+            try {
+                tags.add(findTagByName(name));
+            } catch (NotFoundException e) {
+                log.warn(e.getMessage());
+            }
+        });
         return tags;
     }
 }
